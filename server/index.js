@@ -22,6 +22,14 @@ const staticFiles = [
     '/favicon.ico'
 ];
 
+
+/**
+ * Added because of mongoDB
+ */
+const db = require('../server/utils/DataBaseUtils');
+db.setUpConnection();
+
+
 const app = express();
 
 app.server = http.createServer(app);
@@ -71,8 +79,15 @@ app.get('*', (req, res) => {
             })
 
         }
-    })
+    });
 });
+
+/**
+ * Added because of mongoDB
+ */
+// app.get('/users', (req, res) => {
+//    db.UserList().then(data => res.send(data))
+// });
 
 app.server.listen(process.env.PORT || 3000);
 console.log('Listening on http://localhost:' + app.server.address().port);
